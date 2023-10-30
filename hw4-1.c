@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include<stdbool.h>
 #include<assert.h>
@@ -16,6 +15,7 @@ int main()
         
     scanf("%d",&a);
     for(int i=2;i*i<=a;i++)
+    {
     
         if(a%i==0)
         {
@@ -25,6 +25,7 @@ int main()
         {
             printf("YES");
         }
+    }
     }
     
 

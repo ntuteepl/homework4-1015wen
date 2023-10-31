@@ -3,24 +3,22 @@
 
 int main()
 {
-    int s1,d1,s2,d2,s3,d3,car,temp;
-    int s[3];
-    int d[3];
-    scanf("%d%d%d%d%d%d",&s1,&d1,&s2,&d2,&s3,&d3);
-    s[0]=s1;
-    s[1]=s2;
-    s[2]=s3;
-    d[0]=d1;
-    d[1]=d2;
-    d[2]=d3;
-/*---------------排序，讓s1<s2<s3--------------------------------*/
-
-    for(int i=0;i<3;i++)/*i是要完成的格位，j拿來做比較*/
+    int n=0,car,end,temp,j=0;
+    int s[24]={0},d[24]={0};
+    while(scanf("%d%d",&s[n],&d[n])!=EOF)
     {
-        for(int j=i;j<3;j++)/*裡面的for迴圈跑完才會跑外面的*/
+       n++;
+    }
+    int ssch[10][20]={0};//每班車的s
+    int dsch[10][20]={0};//每班車的d
+
+
+    for(int i=0;i<n;i++)//排序
+    {
+        for(int j=i;j<n;j++)
         {
-         if(s[i]>s[j])/*如果指定的格位大於後面格位的數字就做交換，交換後再去找有沒有更小的數字*/
-         {/*假設i=1的情況，跑完時第一格的數字是最小的*/
+         if(s[i]>s[j])
+         {
           temp=s[j];
           s[j]=s[i];
           s[i]=temp;
@@ -30,33 +28,48 @@ int main()
          }
         }
     }
-/*---------------計算車的數量¸--------------------------------*/
-    car=1;/*一定會有一班車會發車*/
-    if(s[1]<d[0])
+
+
+
+    end=0;//上一班車的抵達時間
+
+    for(int i=0;i<n;i++)//i為車班，到時候去找ssch[]哪個是0就知道有幾班車了
     {
-        car+=1;/*如果s2<d1就要加1班*/
+          for(int k=0;k<n;k++)
+          {
+              if(s[k]>=end && s[k]!=0)//如果發車時間大於上次抵達時間就記錄進時間表內
+              {
+                  end=d[k];
+                  ssch[i][j]=s[k];
+                  dsch[i][j]=d[k];
+                  s[k]=0;
+                  d[k]=0;
+                  j++;
+              }
+          }
+        j=0;
+        end=0;
     }
-    if(s[2]<d[1])
-     {
-         car+=1;/*如果s3<d2就要加1班*/
-     }
-    if(s[2]>=d[0] /*如果第三班的車是第一班的車要減一班*/ && s[1]<d[0]/*前面的狀況，避免出現第二班車可以補的狀況會多減到1班車*/ && s[2]<d[1]/*避免出現第三班車可以同時被前面兩班車替補時的狀況會多減1班車*/)
+    for(int c=0;c<=n;c++)
     {
-        car-=1;
+        if(ssch[c][0]==0)
+        {
+            car=c;
+            printf("%d\n",car);
+            break;
+        }
     }
-    printf("%d",car);
-    if(s[1]<d[0]&&s[2]<d[1])
-    {
-        printf("driver 1%d %d",s[0],d[0]);
-        printf("driver 2%d %d",s[1],d[1]);
-        printf("driver 3%d %d",s[2],d[2]);
+
+    for(int driver = 0; driver < car; driver++){ // 輸出每個駕駛的行程
+        printf("\nDriver %d's schedule is", driver+1 );
+        for(int f = 0; f < n; f++)
+        {
+            if(ssch[driver][f]!=0)
+            {
+                printf(" %d %d",ssch[driver][f],dsch[driver][f]);
+            }
+            else break;
+        }
+
     }
-    if(s[1]<d[0]&&s[2]<d[1]&&s[2]>=d[0])
-    {
-        printf("driver 1%d %d %d %d",s[0],d[0],s[2],d[2]);
-        printf("driver 2%d %d",s[1],d[1]);
-    }
-    
-    
-    
-    }
+}

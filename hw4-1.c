@@ -3,31 +3,29 @@
 
 int main()
 {
-    int n,i,a;
-      
-        scanf(”%d“,&n);
+    int n,a;
+    scanf("%d",&n);
+    int N[n];
+    for(int i=0;i<n;i++)
+    {
+    scanf("%d",&N[i]);
 
-    int numbers[50];
-
-    for(i=0;i<n;i++){
-        scanf(”%d/n“,&numbers[i]);
-    }
-    for(i=0;i<n;i++){
-        int isprime=1;
-
-        for(a=2;a<numbers[i];a++){
-            if(numbers[i]%a==0){
-                isprime=0;
-                break;
+    for(int x=2;x<=N[i];x++)
+    {
+        if(x==N[i])
+            {
+            a=1;
+            break;
             }
+        if((N[i]%x)==0)
+        {
+          a=0;
+          break;
         }
-        if(isprime){
-            printf(”YES “);
-        }
-        else{
-            printf(”NO “);
-        }
+    }
+    if(a==1) printf("YES ");
+    else printf("NO ");
 
     }
 
-    }
+        }

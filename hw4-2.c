@@ -1,36 +1,41 @@
-
 #include <stdio.h>
+#include <stdlib.h>
 
-int main() {
-    int bank[6][3] = {
-    {123,456,9000},
-    {456,789,5000},
-    {789,888,6000},
-    {336,558,10000},
-    {775,666,12000},
-    {566,221,7000}
-    };
-    int k;
-
-    scanf(”%d“, &k);
-    int l,m;
+int main()
+{
+int N,a,pass;
+int account[3][6] = {{123,456,789,336,775,566},
+                     {456,789,888,558,666,221},
+                     {9000,5000,6000,10000,12000,7000}};
 
 
+scanf("%d",&N);
 
+for(int i=0;i<N;i++)
+{
+    scanf("%d %d",&a,&pass);
+    for(int j=0;j<=6;j++)
+    {
 
+        if(account[0][j] == a)
+        {
+          if(account[1][j] == pass)
+          {
+              printf("%d\n",account[2][j]);
+              break;
+          }
+          else
+          {
+           printf("error\n");
+           break;
+          }
 
-    for (int j = 0; j < k; j++) {
-        scanf(”%d%d“,&l,&m);
-        int search[2]={l,m};
-        for(int n=0;n<6;n++){
-            if(search[0]==bank[n][0]&&search[1]==bank[n][1]){
-                printf(”%d“,bank[n][2]);
-                break;
-            }
-            else if (n==5){
-                printf(”error\n“);
-            }
+          }
+
+        else if(j == 6) printf("error\n");
+        }
 
         }
-    }
-}
+
+
+                    }
